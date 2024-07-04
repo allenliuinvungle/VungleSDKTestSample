@@ -15,36 +15,36 @@ import UIKit
 import VungleAdsSDK
 
 class LOMRECViewController: LOBannerViewController {
-    private var mrecAd: VungleBanner?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.navigationItem.title = "Liftoff Medium Rectangle Ad"
-    }
-    
-    override func btnPressed(_ sender: UIButton) {
-        if sender == self.loadBtn {
-            if self.mrecAd != nil {
-                self.mrecAd?.delegate = nil
-                self.mrecAd = nil
-                AppUtil.resetLogMessage(tableView: self.tableView, callbacks: self.callbackLogs)
-            }
-            guard let placementId = self.placementId else {
-                return
-            }
-            self.mrecAd = VungleBanner(placementId: placementId, size: BannerSize.mrec)
-            self.mrecAd?.delegate = self
-            self.mrecAd?.load()
-        } else if sender == self.playBtn {
-            // Determines whether the banner object is nil in addition to whether the ad assets have been downloaded successfully
-            if ((self.mrecAd?.canPlayAd()) != nil) {
-                self.mrecAd?.present(on: self.bannerAdContainer)
-            }
-        } else if sender == self.closeBtn {
-            for subViews in self.bannerAdContainer.subviews {
-                subViews.removeFromSuperview()
-            }
-        }
-    }
+//    private var mrecAd: VungleBanner?
+//    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        self.navigationItem.title = "Liftoff Medium Rectangle Ad"
+//    }
+//    
+//    override func btnPressed(_ sender: UIButton) {
+//        if sender == self.loadBtn {
+//            if self.mrecAd != nil {
+//                self.mrecAd?.delegate = nil
+//                self.mrecAd = nil
+//                AppUtil.resetLogMessage(tableView: self.tableView, callbacks: self.callbackLogs)
+//            }
+//            guard let placementId = self.placementId else {
+//                return
+//            }
+//            self.mrecAd = VungleBanner(placementId: placementId, size: BannerSize.mrec)
+//            self.mrecAd?.delegate = self
+//            self.mrecAd?.load()
+//        } else if sender == self.playBtn {
+//            // Determines whether the banner object is nil in addition to whether the ad assets have been downloaded successfully
+//            if ((self.mrecAd?.canPlayAd()) != nil) {
+//                self.mrecAd?.present(on: self.bannerAdContainer)
+//            }
+//        } else if sender == self.closeBtn {
+//            for subViews in self.bannerAdContainer.subviews {
+//                subViews.removeFromSuperview()
+//            }
+//        }
+//    }
 }

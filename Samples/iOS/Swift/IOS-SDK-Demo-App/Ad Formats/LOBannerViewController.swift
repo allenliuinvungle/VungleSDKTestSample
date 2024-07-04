@@ -16,7 +16,7 @@ import VungleAdsSDK
 
 class LOBannerViewController: UIViewController {
     @IBOutlet weak var bannerAdContainer: UIView!
-    private var bannerAd: VungleBanner?
+    private var bannerAd: VungleBannerView?
     
     @IBOutlet weak var loadBtn: UIButton!
     @IBOutlet weak var playBtn: UIButton!
@@ -50,29 +50,19 @@ class LOBannerViewController: UIViewController {
     
     @IBAction func btnPressed(_ sender:UIButton) {
         if sender == loadBtn {
-            if self.bannerAd != nil {
-                self.bannerAd?.delegate = nil
-                self.bannerAd = nil
-                AppUtil.resetLogMessage(tableView: self.tableView, callbacks: self.callbackLogs)
-            }
-            guard let placementId = self.placementId else {
-                return
-            }
-            
-            /**
-             Banner Sizes:
-                BannerSize.regular = 320x50
-                BannerSize.short = 300x50
-                BannerSize.leaderboard = 720x50
-             */
-            self.bannerAd = VungleBanner(placementId: placementId, size: BannerSize.regular)
-            self.bannerAd?.delegate = self
-            self.bannerAd?.load()
-        } else if sender == playBtn {
-            // Determines whether the banner object is nil in addition to whether the ad assets have been downloaded successfully
-            if ((self.bannerAd?.canPlayAd()) != nil) {
-                self.bannerAd?.present(on: self.bannerAdContainer)
-            }
+//            if self.bannerAd!== nil {
+//                self.bannerAd!.delegate = nil
+//                AppUtil.resetLogMessage(tableView: self.tableView, callbacks: self.callbackLogs)
+//            }
+//            guard let placementId = self.placementId else {
+//                return
+//            }
+         
+            self.bannerAd = VungleBannerView(placementId: placementId!, vungleAdSize: VungleAdSize.VungleAdSizeFromCGSize(CGSize(width: 300, height: 50)))
+            self.bannerAd!.delegate = self
+            self.bannerAd!.load()
+            self.bannerAdContainer!.addSubview(self.bannerAd!)
+//            self.bannerAd.frame = CGRect(x: 0, y: 0)
         } else if sender == closeBtn {
             for subView in self.bannerAdContainer.subviews {
                 subView.removeFromSuperview()
@@ -81,61 +71,52 @@ class LOBannerViewController: UIViewController {
     }
 }
 
+
+
 // MARK: Vungle SDK Interstitial Delegate Callbacks
 
-extension LOBannerViewController: VungleBannerDelegate {
+extension LOBannerViewController: VungleBannerViewDelegate {
     // Ad load Events
-    func bannerAdDidLoad(_ banner: VungleBanner) {
-        print(#function)
-        AppUtil.activeLogMessage(tableView: self.tableView, callbacks: self.callbackLogs, title: "bannerAdDidLoad")
+    func bannerAdDidLoad(_ bannerView: VungleBannerView) {
+        print("[TestApp log] bannerAdDidLoad")
+        
     }
     
-    func bannerAdDidFailToLoad(_ banner: VungleBanner, withError: NSError) {
-        print(#function)
-        print(withError)
-        AppUtil.activeLogMessage(tableView: self.tableView, callbacks: self.callbackLogs, title: "bannerAdDidFailToLoad")
+    func bannerAdWillPresent(_ bannerView: VungleBannerView) {
+        print("[TestApp log] bannerAdWillPresent")
+        
     }
     
-    // Ad Lifecycle Events
-    func bannerAdWillPresent(_ banner: VungleBanner) {
-        print(#function)
-        AppUtil.activeLogMessage(tableView: self.tableView, callbacks: self.callbackLogs, title: "bannerAdWillPresent")
+    func bannerAdDidPresent(_ bannerView: VungleBannerView) {
+        print("[TestApp log] bannerAdDidPresent")
+        
     }
     
-    func bannerAdDidPresent(_ banner: VungleBanner) {
-        print(#function)
-        AppUtil.activeLogMessage(tableView: self.tableView, callbacks: self.callbackLogs, title: "bannerAdDidPresent")
+    func bannerAdDidFail(_ bannerView: VungleBannerView, withError: NSError) {
+        
+        print("[TestApp log] bannerAdDidFailToPresent with error: \(withError.localizedDescription)")
+        
     }
     
-    func bannerAdDidFailToPresent(_ banner: VungleBanner, withError: NSError) {
-        print(#function)
-        print(withError)
-        AppUtil.activeLogMessage(tableView: self.tableView, callbacks: self.callbackLogs, title: "bannerAdDidFailToPresent")
+    func bannerAdWillClose(_ bannerView: VungleBannerView) {
+        print("[TestApp log] bannerAdWillClose")
     }
     
-    func bannerAdDidTrackImpression(_ banner: VungleBanner) {
-        print(#function)
-        AppUtil.activeLogMessage(tableView: self.tableView, callbacks: self.callbackLogs, title: "bannerAdDidTrackImpression")
+    func bannerAdDidClose(_ bannerView: VungleBannerView) {
+        print("[TestApp log] bannerAdDidClose")
+        
     }
     
-    func bannerAdDidClick(_ banner: VungleBanner) {
-        print(#function)
-        AppUtil.activeLogMessage(tableView: self.tableView, callbacks: self.callbackLogs, title: "bannerAdDidClick")
+    func bannerAdDidTrackImpression(_ bannerView: VungleBannerView) {
+        print("[TestApp log] bannerAdDidTrackImpression")
     }
     
-    func bannerAdWillLeaveApplication(_ banner: VungleBanner) {
-        print(#function)
-        AppUtil.activeLogMessage(tableView: self.tableView, callbacks: self.callbackLogs, title: "bannerAdWillLeaveApplication")
+    func bannerAdDidClick(_ bannerView: VungleBannerView) {
+        print("[TestApp log] bannerAdDidClick")
     }
     
-    func bannerAdWillClose(_ banner: VungleBanner) {
-        print(#function)
-        AppUtil.activeLogMessage(tableView: self.tableView, callbacks: self.callbackLogs, title: "bannerAdWillClose")
-    }
-    
-    func bannerAdDidClose(_ banner: VungleBanner) {
-        print(#function)
-        AppUtil.activeLogMessage(tableView: self.tableView, callbacks: self.callbackLogs, title: "bannerAdDidClose")
+    func bannerAdWillLeaveApplication(_ bannerView: VungleBannerView) {
+        print("[TestApp log] bannerAdWillLeaveApplication")
     }
 }
 
