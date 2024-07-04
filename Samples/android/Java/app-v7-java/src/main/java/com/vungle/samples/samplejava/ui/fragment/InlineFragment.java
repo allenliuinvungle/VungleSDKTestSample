@@ -44,7 +44,7 @@ public class InlineFragment extends AdExperienceFragment implements BannerAdList
     @Override
     protected void loadAd() {
         super.loadAd();
-        VungleAdSize vngAdSize = VungleAdSize.getAdSizeWithWidthAndHeight( 300, 200 );
+        VungleAdSize vngAdSize = VungleAdSize.getAdSizeWithWidthAndHeight( 300, 50 );
         bannerAd = new VungleBannerView(requireActivity(), placementId, vngAdSize);
         bannerAd.setAdListener(this);
         bannerAd.load("");

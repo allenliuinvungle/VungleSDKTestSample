@@ -28,14 +28,14 @@ import java.util.List;
 
 public class PlacementFragment extends Fragment {
     private static final String TAG = PlacementFragment.class.getSimpleName();
-    private static final String APP_ID = "643d1db1143d3bfd6bcf6510";
+    private static final String APP_ID = "5d479f81f56d05001766c05b";
     private static final String INTERSTITIAL_PLACEMENT = "INTERSTITIAL_NON_BIDDING-5048200";
     private static final String REWARD_PLACEMENT = "REWARDED_VIDEO_NON_BIDDING-0010836";
     private static final String MREC_PLACEMENT = "MREC_NON_BIDDING-4205088";
     private static final String BANNER_PLACEMENT = "BANNER_NON_BIDDING-4570799";
     private static final String NATIVE_PLACEMENT = "NATIVE_NON_BIDDING-7989926";
     private static final String APPOPEN_PLACEMENT = "APPOPEN_NON_BIDDING-0475560";
-    private static final String INLINE_PLACEMENT = "";//TODO
+    private static final String INLINE_PLACEMENT = "ALLEN_INLINE-7050116";//TODO
 
     FragmentPlacementBinding binding = null;
 
